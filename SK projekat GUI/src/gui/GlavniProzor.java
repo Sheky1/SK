@@ -16,7 +16,6 @@ public class GlavniProzor extends JFrame{
 	private Inputs inputs;
 	private JTable tabela;
 	private JScrollPane skrol;
-	private String testString;
 	
 	private GlavniProzor() {
 		postavi();
@@ -41,8 +40,6 @@ public class GlavniProzor extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
 		setLocationRelativeTo(null);
 		setLayout(new BorderLayout());
-		
-		testString = new String("caaocao");
 		
 		toolbar = new Toolbar();
 		

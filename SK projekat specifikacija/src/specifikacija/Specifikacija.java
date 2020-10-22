@@ -1,5 +1,7 @@
 package specifikacija;
 
+import java.util.List;
+
 public abstract class Specifikacija {
 
 	private String filename;
@@ -7,8 +9,10 @@ public abstract class Specifikacija {
 	public Specifikacija() {		
 	}
 
-	public abstract void save();
-	
+	public abstract void dodaj(Entitet e);
+	public abstract void obrisi();
+	public abstract void promeni();
+	public abstract void pretrazi();
 	
 	public String getFilename() {
 		return filename;

@@ -8,7 +8,6 @@ public class Entitet {
 	private String naziv;
 	private Map<String, String> podaci;
 	private static int autoinkement = 0;
-	private String jedn;
 	
 	public Entitet() {
 		

@@ -3,6 +3,7 @@ package specifikacija;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.JFileChooser;
 import javax.swing.plaf.FileChooserUI;
@@ -16,10 +17,10 @@ public abstract class Specifikacija {
 	}
 
 	public abstract void napraviBazu(String putanja);
-	public abstract void dodaj(Entitet noviEntitet);
 	public abstract void pretrazi();
 	public abstract void promeni(int id);
-	public abstract void obrisi(List<Entitet> entiteti);
+	public abstract void upisi(List<Entitet> entiteti);
+	public abstract void ucitaj(List<Entitet> entiteti);
 	
 	public void napraviBazu() {
 		String putanja = "";
@@ -37,26 +38,40 @@ public abstract class Specifikacija {
 	}
 
 	public void dodaj(String naziv, String textArea) {
-		HashMap<String, String> polja = parsirajTextarea(textArea);
+		Map<String, String> polja = parsirajTextarea(textArea);
 		Entitet noviEntitet = new Entitet(naziv, polja);
-		dodaj(noviEntitet);
+		podaci.add(noviEntitet);
+		upisi(podaci);
 	}
 	public void dodaj(String idString, String naziv, String textArea) { 
 		int id = Integer.parseInt(idString);
-		HashMap<String, String> polja = parsirajTextarea(textArea);
+		Map<String, String> polja = parsirajTextarea(textArea);
 		Entitet noviEntitet = new Entitet(id, naziv, polja);
-		dodaj(noviEntitet);
+		podaci.add(noviEntitet);
+		upisi(podaci);
 	}
 
 	public void obrisi(String idString) {
 		int id = Integer.parseInt(idString);
-		
+		for (Entitet entitet : podaci) {
+			if(id == entitet.getId()) {
+				podaci.remove(entitet);
+			}
+		}
+		upisi(podaci);
 	}
-	public void obrisi(String idString, String naziv, String textArea) { 
-		int id = Integer.parseInt(idString);
-		HashMap<String, String> polja = parsirajTextarea(textArea);
-		Entitet noviEntitet = new Entitet(id, naziv, polja);
-		dodaj(noviEntitet);
+	public void obrisi(String naziv, String textArea) { 
+		Map<String, String> polja = parsirajTextarea(textArea);
+		List<Entitet> zaBrisanje = new ArrayList<Entitet>();
+		for (Entitet entitet : podaci) {
+			int brojPoklopljenih = 0;
+			if((entitet.getNaziv()).equals(naziv)) {
+				for(Map.Entry<String, String> par: polja.entrySet()) {
+					
+				}
+			}
+		}
+		upisi(podaci);
 	}
 	
 	public HashMap<String, String> parsirajTextarea(String tekst) {

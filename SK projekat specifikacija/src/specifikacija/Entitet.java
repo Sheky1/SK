@@ -23,5 +23,39 @@ public class Entitet {
 		this.naziv = naziv;
 		this.prostiPodaci = prostiPodaci;
 	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getNaziv() {
+		return naziv;
+	}
+
+	public void setNaziv(String naziv) {
+		this.naziv = naziv;
+	}
+
+	public Map<String, String> getProstiPodaci() {
+		return prostiPodaci;
+	}
+
+	public void setProstiPodaci(Map<String, String> prostiPodaci) {
+		this.prostiPodaci = prostiPodaci;
+	}
+
+	public Map<String, Entitet> getUgnjezdeni() {
+		return ugnjezdeni;
+	}
+
+	public void setUgnjezdeni(Map<String, Entitet> ugnjezdeni) {
+		this.ugnjezdeni = ugnjezdeni;
+	}
+	
+	
 	
 }

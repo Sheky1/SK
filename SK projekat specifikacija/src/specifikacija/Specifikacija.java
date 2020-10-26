@@ -17,10 +17,10 @@ public abstract class Specifikacija {
 	}
 
 	public abstract void napraviBazu(String putanja);
-	public abstract void pretrazi();
-	public abstract void promeni(int id);
-	public abstract void upisi(List<Entitet> entiteti);
-	public abstract void ucitaj(List<Entitet> entiteti);
+//	public abstract void pretrazi();
+//	public abstract void promeni(int id);
+	public abstract void upisi();
+	public abstract void ucitaj();
 	
 	public void napraviBazu() {
 		String putanja = "";
@@ -41,37 +41,120 @@ public abstract class Specifikacija {
 		Map<String, String> polja = parsirajTextarea(textArea);
 		Entitet noviEntitet = new Entitet(naziv, polja);
 		podaci.add(noviEntitet);
-		upisi(podaci);
+		upisi();
 	}
 	public void dodaj(String idString, String naziv, String textArea) { 
 		int id = Integer.parseInt(idString);
 		Map<String, String> polja = parsirajTextarea(textArea);
 		Entitet noviEntitet = new Entitet(id, naziv, polja);
 		podaci.add(noviEntitet);
-		upisi(podaci);
+		upisi();
+	}
+	
+	public void dodajUgnjezdeni(String spoljniId, String naziv, String textArea) {
+		int id = Integer.parseInt(spoljniId);
+		Entitet spoljni = null;
+		for (Entitet entitet : podaci) {
+			if(id == entitet.getId()) {
+				spoljni = entitet;
+				break;
+			}
+		}
+		Map<String, String> polja = parsirajTextarea(textArea);
+		Entitet noviEntitet = new Entitet(naziv, polja);
+		spoljni.getUgnjezdeni().put(noviEntitet.getId(), noviEntitet);
+		upisi();
+	}
+	public void dodajUgnjezdeni(String spoljniId, String idString, String naziv, String textArea) { 
+		int id = Integer.parseInt(spoljniId);
+		Entitet spoljni = null;
+		for (Entitet entitet : podaci) {
+			if(id == entitet.getId()) {
+				spoljni = entitet;
+				break;
+			}
+		}
+		int idUgnj = Integer.parseInt(idString);
+		Map<String, String> polja = parsirajTextarea(textArea);
+		Entitet noviEntitet = new Entitet(idUgnj, naziv, polja);
+		spoljni.getUgnjezdeni().put(noviEntitet.getId(), noviEntitet);
+		upisi();
 	}
 
 	public void obrisi(String idString) {
 		int id = Integer.parseInt(idString);
+		int index = -1;
 		for (Entitet entitet : podaci) {
 			if(id == entitet.getId()) {
-				podaci.remove(entitet);
+				index = podaci.indexOf(entitet);
+				break;
 			}
 		}
-		upisi(podaci);
+		podaci.remove(index);
+		upisi();
 	}
 	public void obrisi(String naziv, String textArea) { 
 		Map<String, String> polja = parsirajTextarea(textArea);
-		List<Entitet> zaBrisanje = new ArrayList<Entitet>();
+		List<Integer> zaBrisanje = new ArrayList<Integer>();
 		for (Entitet entitet : podaci) {
-			int brojPoklopljenih = 0;
+			int neBrisi = 0;
 			if((entitet.getNaziv()).equals(naziv)) {
 				for(Map.Entry<String, String> par: polja.entrySet()) {
-					
+					if(entitet.getProstiPodaci().containsKey(par.getKey())) {
+						if(!(entitet.getProstiPodaci().get(par.getKey()).equals(par.getValue()))) {
+							neBrisi = 1;
+						}
+					}
+					else {
+						neBrisi = 1;
+					}
+				}
+				if(neBrisi == 0) {
+					zaBrisanje.add(entitet.getId());
 				}
 			}
 		}
-		upisi(podaci);
+		for(int i = zaBrisanje.size() - 1; i >= 0; i--) {
+			podaci.remove(i);
+		}
+		upisi();
+	}
+	
+	public List<Entitet> pretrazi(String naziv, String textArea) {
+		Map<String, String> polja = parsirajTextarea(textArea);
+		List<Entitet> zaPretragu = new ArrayList<Entitet>();
+		for(Entitet entitet: podaci) {
+			int nePretrazuj = 0;
+			if((entitet.getNaziv()).equals(naziv)) {
+				for(Map.Entry<String, String> par: polja.entrySet()) {
+					if(entitet.getProstiPodaci().containsKey(par.getKey())) {
+						if(!(entitet.getProstiPodaci().get(par.getKey()).equals(par.getValue()))) {
+							nePretrazuj = 1;
+						}
+					}
+					else {
+						nePretrazuj = 1;
+					}
+				}
+				if(nePretrazuj == 0) {
+					zaPretragu.add(entitet);
+				}
+			}
+		}
+		return zaPretragu;
+	}
+	
+	public List<Entitet> pretrazi(String idString) {
+		int id = Integer.parseInt(idString);
+		List<Entitet> zaPretragu = new ArrayList<Entitet>();
+		for(Entitet entitet: podaci) {
+			if(id == entitet.getId()) {
+				zaPretragu.add(entitet);
+				break;
+			}
+			
+		}
+		return zaPretragu;
 	}
 	
 	public HashMap<String, String> parsirajTextarea(String tekst) {

@@ -8,7 +8,7 @@ public class Entitet {
 	private int id;
 	private String naziv;
 	private Map<String, String> prostiPodaci;
-	private Map<String, Entitet> ugnjezdeni;
+	private Map<Integer, Entitet> ugnjezdeni;
 	private static int autoinkrement = 0;
 	
 	public Entitet(String naziv, Map<String, String> prostiPodaci) {
@@ -48,11 +48,11 @@ public class Entitet {
 		this.prostiPodaci = prostiPodaci;
 	}
 
-	public Map<String, Entitet> getUgnjezdeni() {
+	public Map<Integer, Entitet> getUgnjezdeni() {
 		return ugnjezdeni;
 	}
 
-	public void setUgnjezdeni(Map<String, Entitet> ugnjezdeni) {
+	public void setUgnjezdeni(Map<Integer, Entitet> ugnjezdeni) {
 		this.ugnjezdeni = ugnjezdeni;
 	}
 	

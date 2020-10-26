@@ -13,7 +13,8 @@ public abstract class Specifikacija {
 	private String filename;
 	private ArrayList<Entitet> podaci;
 	
-	public Specifikacija() {		
+	public Specifikacija() {
+		podaci = new ArrayList<Entitet>();
 	}
 
 	public abstract void napraviBazu(String putanja);

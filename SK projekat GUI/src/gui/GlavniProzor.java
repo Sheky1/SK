@@ -9,13 +9,16 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import implementacijaJSON.ImplementacijaJSON;
+
+@SuppressWarnings("serial")
 public class GlavniProzor extends JFrame{
 	
 	private static GlavniProzor prozor;
 	private Toolbar toolbar;
-	private Inputs inputs;
 	private JTable tabela;
 	private JScrollPane skrol;
+	private ImplementacijaJSON skladiste;
 	
 	private GlavniProzor() {
 		postavi();
@@ -30,31 +33,66 @@ public class GlavniProzor extends JFrame{
 
 	private void postavi() {
 		
-//		Toolkit toolkit = Toolkit.getDefaultToolkit();
-//		Dimension dimenzija = toolkit.getScreenSize();
-//		int visina = dimenzija.height;
-//		int sirina = dimenzija.width;
-		setSize(new Dimension(540, 550));
+		Toolkit toolkit = Toolkit.getDefaultToolkit();
+		Dimension dimenzija = toolkit.getScreenSize();
+		int visina = dimenzija.height;
+		int sirina = dimenzija.width;
+		setSize(sirina/3*2, visina/3*2);
+//		setSize(new Dimension(540, 550));
 		
 		setTitle("Softverske komponente");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
 		setLocationRelativeTo(null);
 		setLayout(new BorderLayout());
 		
-		toolbar = new Toolbar();
+		skladiste = new ImplementacijaJSON();
 		
-		inputs = new Inputs();
+		toolbar = new Toolbar();
 		
 		JPanel gornji = new JPanel();
 		gornji.setLayout(new BorderLayout());
 		gornji.add(toolbar, BorderLayout.NORTH);
-		gornji.add(inputs, BorderLayout.SOUTH );
 		
 		tabela = new Tabela();
 		skrol = new JScrollPane(tabela);
 		skrol.setPreferredSize(new Dimension(1000,300));
 		
 		add(gornji, BorderLayout.NORTH);
-		add(skrol, BorderLayout.SOUTH);
+		add(skrol, BorderLayout.CENTER);
 	}
+
+	public Toolbar getToolbar() {
+		return toolbar;
+	}
+
+	public void setToolbar(Toolbar toolbar) {
+		this.toolbar = toolbar;
+	}
+
+	public JTable getTabela() {
+		return tabela;
+	}
+
+	public void setTabela(JTable tabela) {
+		this.tabela = tabela;
+	}
+
+	public JScrollPane getSkrol() {
+		return skrol;
+	}
+
+	public void setSkrol(JScrollPane skrol) {
+		this.skrol = skrol;
+	}
+
+	public ImplementacijaJSON getSkladiste() {
+		return skladiste;
+	}
+
+	public void setSkladiste(ImplementacijaJSON skladiste) {
+		this.skladiste = skladiste;
+	}
+	
+	
+	
 }

@@ -1,12 +1,12 @@
 package specifikacija;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.swing.JFileChooser;
-import javax.swing.plaf.FileChooserUI;
 
 public abstract class Specifikacija {
 
@@ -17,7 +17,6 @@ public abstract class Specifikacija {
 	}
 
 	public abstract void napraviBazu(String putanja);
-//	public abstract void pretrazi();
 //	public abstract void promeni(int id);
 	public abstract void upisi();
 	public abstract void ucitaj();
@@ -156,6 +155,17 @@ public abstract class Specifikacija {
 		}
 		return zaPretragu;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public void sortiraj(boolean sortById, ArrayList<Entitet> entiteti) {
+		for (Entitet entitet : entiteti) {
+			if(sortById) entitet.setSortById(true);
+			else entitet.setSortById(false);
+		}
+		Collections.sort(entiteti);
+	}
+	
+	
 	
 	public HashMap<String, String> parsirajTextarea(String tekst) {
 		HashMap<String, String> polja = new HashMap<String, String>();

@@ -3,13 +3,14 @@ package specifikacija;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Entitet {
+public class Entitet implements Comparable {
 
 	private int id;
 	private String naziv;
 	private Map<String, String> prostiPodaci;
 	private Map<Integer, Entitet> ugnjezdeni;
 	private static int autoinkrement = 0;
+	private boolean sortById = true;
 	
 	public Entitet(String naziv, Map<String, String> prostiPodaci) {
 		this.id = autoinkrement;
@@ -55,7 +56,44 @@ public class Entitet {
 	public void setUgnjezdeni(Map<Integer, Entitet> ugnjezdeni) {
 		this.ugnjezdeni = ugnjezdeni;
 	}
+
+	public boolean isSortById() {
+		return sortById;
+	}
+
+	public void setSortById(boolean sortById) {
+		this.sortById = sortById;
+	}
+
+	@Override
+	public int compareTo(Object o) {
+		Entitet drugi = (Entitet) o;
+		if(sortById) {
+			return this.getId() - drugi.getId();
+		}
+		else {
+			return stringCompare(this.getNaziv(), drugi.getNaziv());
+		}
+	}
 	
-	
+	public int stringCompare(String str1, String str2){ 
+        int l1 = str1.length(); 
+        int l2 = str2.length(); 
+        int lmin = Math.min(l1, l2); 
+  
+        for (int i = 0; i < lmin; i++) { 
+            int str1_ch = (int)str1.charAt(i); 
+            int str2_ch = (int)str2.charAt(i); 
+            if (str1_ch != str2_ch) { 
+                return str1_ch - str2_ch; 
+            } 
+        } 
+        if (l1 != l2) { 
+            return l1 - l2; 
+        } 
+        else { 
+            return 0; 
+        } 
+    } 
 	
 }

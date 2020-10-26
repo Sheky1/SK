@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.JFileChooser;
+//import javax.swing.JFileChooser;
 
 public abstract class Specifikacija {
 
@@ -24,14 +24,14 @@ public abstract class Specifikacija {
 	public void napraviBazu() {
 		String putanja = "";
 		
-		JFileChooser fc = new JFileChooser();
+//		JFileChooser fc = new JFileChooser();
 		
 		setFilename(putanja);
 		napraviBazu(putanja);
 	}
 	public void otvoriBazu(String putanja) {
 		
-		JFileChooser fc = new JFileChooser();
+//		JFileChooser fc = new JFileChooser();
 
 		setFilename(putanja);
 	}
@@ -156,7 +156,6 @@ public abstract class Specifikacija {
 		return zaPretragu;
 	}
 	
-	@SuppressWarnings("unchecked")
 	public void sortiraj(boolean sortById, ArrayList<Entitet> entiteti) {
 		for (Entitet entitet : entiteti) {
 			if(sortById) entitet.setSortById(true);

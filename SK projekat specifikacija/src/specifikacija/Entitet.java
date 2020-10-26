@@ -1,9 +1,8 @@
 package specifikacija;
 
-import java.util.HashMap;
 import java.util.Map;
 
-public class Entitet implements Comparable {
+public class Entitet implements Comparable<Entitet> {
 
 	private int id;
 	private String naziv;
@@ -64,17 +63,6 @@ public class Entitet implements Comparable {
 	public void setSortById(boolean sortById) {
 		this.sortById = sortById;
 	}
-
-	@Override
-	public int compareTo(Object o) {
-		Entitet drugi = (Entitet) o;
-		if(sortById) {
-			return this.getId() - drugi.getId();
-		}
-		else {
-			return stringCompare(this.getNaziv(), drugi.getNaziv());
-		}
-	}
 	
 	public int stringCompare(String str1, String str2){ 
         int l1 = str1.length(); 
@@ -94,6 +82,16 @@ public class Entitet implements Comparable {
         else { 
             return 0; 
         } 
-    } 
+    }
+
+	@Override
+	public int compareTo(Entitet drugi) {
+		if(sortById) {
+			return this.getId() - drugi.getId();
+		}
+		else {
+			return stringCompare(this.getNaziv(), drugi.getNaziv());
+		}
+	} 
 	
 }

@@ -95,7 +95,7 @@ public abstract class Specifikacija {
 	}
 	public void obrisi(String naziv, String textArea) {
 		Map<String, String> polja = parsirajTextarea(textArea);
-		List<Integer> zaBrisanje = new ArrayList<Integer>();
+		List<Entitet> zaBrisanje = new ArrayList<Entitet>();
 		for (Entitet entitet : podaci) {
 			int neBrisi = 0;
 			if((entitet.getNaziv()).equals(naziv)) {
@@ -110,13 +110,11 @@ public abstract class Specifikacija {
 					}
 				}
 				if(neBrisi == 0) {
-					zaBrisanje.add(entitet.getId());
+					zaBrisanje.add(entitet);
 				}
 			}
 		}
-		for(int i = zaBrisanje.size() - 1; i >= 0; i--) {
-			podaci.remove(i);
-		}
+		podaci.removeAll(zaBrisanje);
 		upisi();
 	}
 	
@@ -158,8 +156,10 @@ public abstract class Specifikacija {
 		return zaPretragu;
 	}
 	
-	public void sortiraj(boolean sortById, ArrayList<Entitet> entiteti) {
+	public void sortiraj(boolean asc, boolean sortById, List<Entitet> entiteti) {
 		for (Entitet entitet : entiteti) {
+			if(asc) entitet.setAsc(true);
+			else entitet.setAsc(false);
 			if(sortById) entitet.setSortById(true);
 			else entitet.setSortById(false);
 		}

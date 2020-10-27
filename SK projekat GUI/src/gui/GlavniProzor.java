@@ -8,6 +8,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import implementacijaJSON.ImplementacijaJSON;
 import model.TableModel;
@@ -21,6 +23,7 @@ public class GlavniProzor extends JFrame{
 	private TableModel tableModel;
 	private JScrollPane skrol;
 	private ImplementacijaJSON skladiste;
+	private String selektovaniID = "";
 	
 	private GlavniProzor() {
 		postavi();
@@ -57,6 +60,16 @@ public class GlavniProzor extends JFrame{
 		
 		tableModel = new TableModel();
 		tabela = new Tabela(tableModel);
+		
+		tabela.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+			@Override
+			public void valueChanged(ListSelectionEvent event) {
+				if(tabela.getSelectedRow() == -1) return;
+	            Integer id = (Integer) tabela.getValueAt(tabela.getSelectedRow(), 0);
+	            GlavniProzor.getProzor().setSelektovaniID(id.toString());
+			}
+	    });
+		
 		skrol = new JScrollPane(tabela);
 		skrol.setPreferredSize(new Dimension(1000,300));
 		
@@ -78,6 +91,14 @@ public class GlavniProzor extends JFrame{
 
 	public void setTabela(JTable tabela) {
 		this.tabela = tabela;
+	}
+
+	public String getSelektovaniID() {
+		return selektovaniID;
+	}
+
+	public void setSelektovaniID(String selektovaniID) {
+		this.selektovaniID = selektovaniID;
 	}
 
 	public JScrollPane getSkrol() {

@@ -5,8 +5,6 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 
 import gui.GlavniProzor;
 import specifikacija.Entitet;
@@ -15,8 +13,6 @@ public class SortirajListener implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
-		ArrayList<Entitet> lista = new ArrayList<Entitet>();
 		
 		Object[] options = {"Po ID-ju", "Po nazivu", "Odustani"};
 		int n = JOptionPane.showOptionDialog(
@@ -30,12 +26,26 @@ public class SortirajListener implements ActionListener{
 			options[2]
 		);
 		
-		if(n == JOptionPane.YES_OPTION) {
-			GlavniProzor.getProzor().getSkladiste().sortiraj(true, lista);
-		}
-		else {
-			GlavniProzor.getProzor().getSkladiste().sortiraj(false, lista);
-		}
+		Object[] options2 = {"ASC", "DESC", "Odustani"};
+		int m = JOptionPane.showOptionDialog(
+			GlavniProzor.getProzor(),
+			"Po kom poretku?",
+			"Odabir nacina sortiranja",
+			JOptionPane.YES_NO_CANCEL_OPTION,
+			JOptionPane.QUESTION_MESSAGE,
+			null,
+			options2,
+			options2[2]
+		);
+		
+		boolean poID = true;
+		boolean asc = true;
+		
+		if(n == JOptionPane.NO_OPTION) poID = false;
+		if(m == JOptionPane.NO_OPTION) asc = false;
+		
+		GlavniProzor.getProzor().getSkladiste().sortiraj(asc, poID, (ArrayList<Entitet>) GlavniProzor.getProzor().getTableModel().getLista());
+		GlavniProzor.getProzor().getTableModel().updateAgain();
 		
 	}
 

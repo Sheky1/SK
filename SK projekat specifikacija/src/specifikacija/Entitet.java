@@ -11,6 +11,7 @@ public class Entitet implements Comparable<Entitet> {
 	private Map<Integer, Entitet> ugnjezdeni;
 	private static int autoinkrement = 0;
 	private boolean sortById = true;
+	private boolean asc = true;
 	
 	public Entitet(String naziv, Map<String, String> prostiPodaci) {
 		this.id = autoinkrement;
@@ -67,6 +68,14 @@ public class Entitet implements Comparable<Entitet> {
 		this.sortById = sortById;
 	}
 	
+	public boolean isAsc() {
+		return asc;
+	}
+
+	public void setAsc(boolean asc) {
+		this.asc = asc;
+	}
+
 	public int stringCompare(String str1, String str2){ 
         int l1 = str1.length(); 
         int l2 = str2.length(); 
@@ -89,18 +98,34 @@ public class Entitet implements Comparable<Entitet> {
 
 	@Override
 	public int compareTo(Entitet drugi) {
-		if(sortById) {
-			return this.getId() - drugi.getId();
+		if(asc) {
+			if(sortById) {
+				return this.getId() - drugi.getId();
+			}
+			else {
+				return stringCompare(this.getNaziv(), drugi.getNaziv());
+			}
+		} else {
+			if(sortById) {
+				return drugi.getId() - this.getId();
+			}
+			else {
+				return stringCompare(drugi.getNaziv(), this.getNaziv());
+			}
 		}
-		else {
-			return stringCompare(this.getNaziv(), drugi.getNaziv());
-		}
+		
 	}
 
 	@Override
 	public String toString() {
-		return "Entitet id=" + id + ", naziv=" + naziv + ", prostiPodaci=" + prostiPodaci + ", ugnjezdeni="
-				+ ugnjezdeni;
+		if(ugnjezdeni.size() == 0) {
+			return "id: " + id + ", naziv: " + naziv + ", prostiPodaci: " + prostiPodaci + ", ugnjezdeni: "
+					+ ugnjezdeni;
+		}
+		else {
+			return "id: " + id + ", naziv: " + naziv + ", prostiPodaci: " + prostiPodaci;
+		}
+		
 	} 
 	
 }

@@ -14,19 +14,6 @@ public class DodajListener implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-//		Object[] options = {"Dodaj", "Odustani"};
-//		int n = JOptionPane.showOptionDialog(
-//			GlavniProzor.getProzor(),
-//			"Would you like some green eggs to go "
-//			+ "with that ham?",
-//			"A Silly Question",
-//			JOptionPane.YES_NO_OPTION,
-//			JOptionPane.INFORMATION_MESSAGE,
-//			null,
-//			options,
-//			options[1]
-//		);
-		
 		JTextArea textArea = new JTextArea();
 		
 		String naziv = JOptionPane.showInputDialog("Naziv entiteta");

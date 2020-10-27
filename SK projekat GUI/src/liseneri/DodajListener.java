@@ -1,6 +1,5 @@
 package liseneri;
 
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -10,7 +9,7 @@ import javax.swing.JTextArea;
 
 import gui.GlavniProzor;
 
-public class DodajActionLisener implements ActionListener{
+public class DodajListener implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -34,11 +33,9 @@ public class DodajActionLisener implements ActionListener{
 		if(!(naziv.equals(""))) {
 			int data = JOptionPane.showConfirmDialog(GlavniProzor.getProzor(), new JScrollPane(textArea), "Podaci entiteta", JOptionPane.YES_NO_OPTION);
 			if(data == JOptionPane.YES_OPTION) {
-				System.out.println(textArea.getText());
 				GlavniProzor.getProzor().getSkladiste().dodaj(naziv, textArea.getText());
 			}
 		}
-		
 		
 	}
 

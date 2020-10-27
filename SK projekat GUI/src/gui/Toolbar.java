@@ -3,7 +3,11 @@ package gui;
 import javax.swing.JButton;
 import javax.swing.JToolBar;
 
-import liseneri.DodajActionLisener;
+import liseneri.DodajListener;
+import liseneri.DodajUgnjezdeniListener;
+import liseneri.ObrisiListener;
+import liseneri.PretraziListener;
+import liseneri.SortirajListener;
 
 public class Toolbar extends JToolBar{
 	
@@ -11,8 +15,7 @@ public class Toolbar extends JToolBar{
 	private JButton dodajUgjezdeni;
 	private JButton obrisi;
 	private JButton pretrazi;
-	private JButton soritrajId;
-	private JButton soritrajNaziv;
+	private JButton soritraj;
 	
 	protected Toolbar() {
 		
@@ -20,17 +23,19 @@ public class Toolbar extends JToolBar{
 		dodajUgjezdeni = new JButton("Dodaj Ugnjezdeni");
 		obrisi = new JButton("Obrisi");
 		pretrazi = new JButton("Pretrazi");
-		soritrajId = new JButton("SortID");
-		soritrajNaziv = new JButton("SortNAZIV");
+		soritraj = new JButton("Sort");
 		
-		dodaj.addActionListener(new DodajActionLisener());
+		dodaj.addActionListener(new DodajListener());
+		dodajUgjezdeni.addActionListener(new DodajUgnjezdeniListener());
+		obrisi.addActionListener(new ObrisiListener());
+		pretrazi.addActionListener(new PretraziListener());
+		soritraj.addActionListener(new SortirajListener());
 		
 		add(dodaj);
 		add(dodajUgjezdeni);
 		add(obrisi);
 		add(pretrazi);
-		add(soritrajId);
-		add(soritrajNaziv);
+		add(soritraj);
 	}
 	
 	

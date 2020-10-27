@@ -41,14 +41,14 @@ public abstract class Specifikacija {
 		Map<String, String> polja = parsirajTextarea(textArea);
 		Entitet noviEntitet = new Entitet(naziv, polja);
 		podaci.add(noviEntitet);
-		upisi();
+//		upisi();
 	}
 	public void dodaj(String idString, String naziv, String textArea) { 
 		int id = Integer.parseInt(idString);
 		Map<String, String> polja = parsirajTextarea(textArea);
 		Entitet noviEntitet = new Entitet(id, naziv, polja);
 		podaci.add(noviEntitet);
-		upisi();
+//		upisi();
 	}
 	
 	public void dodajUgnjezdeni(String spoljniId, String naziv, String textArea) {
@@ -63,7 +63,7 @@ public abstract class Specifikacija {
 		Map<String, String> polja = parsirajTextarea(textArea);
 		Entitet noviEntitet = new Entitet(naziv, polja);
 		spoljni.getUgnjezdeni().put(noviEntitet.getId(), noviEntitet);
-		upisi();
+//		upisi();
 	}
 	public void dodajUgnjezdeni(String spoljniId, String idString, String naziv, String textArea) { 
 		int id = Integer.parseInt(spoljniId);
@@ -78,7 +78,7 @@ public abstract class Specifikacija {
 		Map<String, String> polja = parsirajTextarea(textArea);
 		Entitet noviEntitet = new Entitet(idUgnj, naziv, polja);
 		spoljni.getUgnjezdeni().put(noviEntitet.getId(), noviEntitet);
-		upisi();
+//		upisi();
 	}
 
 	public void obrisi(String idString) {
@@ -91,7 +91,7 @@ public abstract class Specifikacija {
 			}
 		}
 		podaci.remove(index);
-		upisi();
+//		upisi();
 	}
 	public void obrisi(String naziv, String textArea) { 
 		Map<String, String> polja = parsirajTextarea(textArea);
@@ -117,7 +117,7 @@ public abstract class Specifikacija {
 		for(int i = zaBrisanje.size() - 1; i >= 0; i--) {
 			podaci.remove(i);
 		}
-		upisi();
+//		upisi();
 	}
 	
 	public List<Entitet> pretrazi(String naziv, String textArea) {
@@ -143,7 +143,6 @@ public abstract class Specifikacija {
 		}
 		return zaPretragu;
 	}
-	
 	public List<Entitet> pretrazi(String idString) {
 		int id = Integer.parseInt(idString);
 		List<Entitet> zaPretragu = new ArrayList<Entitet>();

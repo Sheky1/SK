@@ -10,6 +10,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import implementacijaJSON.ImplementacijaJSON;
+import model.TableModel;
 
 @SuppressWarnings("serial")
 public class GlavniProzor extends JFrame{
@@ -17,6 +18,7 @@ public class GlavniProzor extends JFrame{
 	private static GlavniProzor prozor;
 	private Toolbar toolbar;
 	private JTable tabela;
+	private TableModel tableModel;
 	private JScrollPane skrol;
 	private ImplementacijaJSON skladiste;
 	
@@ -53,7 +55,8 @@ public class GlavniProzor extends JFrame{
 		gornji.setLayout(new BorderLayout());
 		gornji.add(toolbar, BorderLayout.NORTH);
 		
-		tabela = new Tabela();
+		tableModel = new TableModel();
+		tabela = new Tabela(tableModel);
 		skrol = new JScrollPane(tabela);
 		skrol.setPreferredSize(new Dimension(1000,300));
 		
@@ -92,7 +95,13 @@ public class GlavniProzor extends JFrame{
 	public void setSkladiste(ImplementacijaJSON skladiste) {
 		this.skladiste = skladiste;
 	}
-	
-	
+
+	public TableModel getTableModel() {
+		return tableModel;
+	}
+
+	public void setTableModel(TableModel tableModel) {
+		this.tableModel = tableModel;
+	}
 	
 }

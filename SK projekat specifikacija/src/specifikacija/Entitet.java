@@ -1,5 +1,6 @@
 package specifikacija;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class Entitet implements Comparable<Entitet> {
@@ -16,12 +17,14 @@ public class Entitet implements Comparable<Entitet> {
 		autoinkrement++;
 		this.naziv = naziv;
 		this.prostiPodaci = prostiPodaci;
+		ugnjezdeni = new HashMap<Integer, Entitet>();
 	}
 	
 	public Entitet(int id, String naziv, Map<String, String> prostiPodaci) {
 		this.id = id;
 		this.naziv = naziv;
 		this.prostiPodaci = prostiPodaci;
+		ugnjezdeni = new HashMap<Integer, Entitet>();
 	}
 
 	public int getId() {
@@ -92,6 +95,12 @@ public class Entitet implements Comparable<Entitet> {
 		else {
 			return stringCompare(this.getNaziv(), drugi.getNaziv());
 		}
+	}
+
+	@Override
+	public String toString() {
+		return "Entitet id=" + id + ", naziv=" + naziv + ", prostiPodaci=" + prostiPodaci + ", ugnjezdeni="
+				+ ugnjezdeni;
 	} 
 	
 }

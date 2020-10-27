@@ -18,8 +18,7 @@ public class ImplementacijaJSON extends Specifikacija {
 
 	@Override
 	public void upisi() {
-		// TODO Auto-generated method stub
-		
+		System.out.println(this.getPodaci());
 	}
 
 }

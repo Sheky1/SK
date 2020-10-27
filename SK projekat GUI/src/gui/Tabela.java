@@ -6,8 +6,7 @@ import model.TableModel;
 
 public class Tabela extends JTable{
 
-	protected Tabela() {
-		super(new TableModel());
-		
+	protected Tabela(TableModel model) {
+		super(model);
 	}
 }

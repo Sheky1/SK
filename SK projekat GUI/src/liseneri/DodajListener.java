@@ -34,6 +34,7 @@ public class DodajListener implements ActionListener{
 			int data = JOptionPane.showConfirmDialog(GlavniProzor.getProzor(), new JScrollPane(textArea), "Podaci entiteta", JOptionPane.YES_NO_OPTION);
 			if(data == JOptionPane.YES_OPTION) {
 				GlavniProzor.getProzor().getSkladiste().dodaj(naziv, textArea.getText());
+				GlavniProzor.getProzor().getTableModel().update();
 			}
 		}
 		

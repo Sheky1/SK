@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+import exceptions.ExceptionHandler;
 import gui.GlavniProzor;
 
 public class DodajListener implements ActionListener{
@@ -23,6 +24,8 @@ public class DodajListener implements ActionListener{
 				GlavniProzor.getProzor().getSkladiste().dodaj(naziv, textArea.getText());
 				GlavniProzor.getProzor().getTableModel().update();
 			}
+		}else {
+			ExceptionHandler.handle("naziv");
 		}
 		
 	}

@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="D:/Dimitrije/RAF/Sofverske komponente/Exportovi/jsonimpl.jar"/>
-	<classpathentry kind="lib" path="D:/Dimitrije/RAF/Sofverske komponente/Exportovi/specifikacija.jar"/>
+	<classpathentry kind="lib" path="C:/Adriiii/Fakultet/Softverske komponente/eksportovci/jsonimpl.jar"/>
+	<classpathentry kind="lib" path="C:/Adriiii/Fakultet/Softverske komponente/eksportovci/specifikacija.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

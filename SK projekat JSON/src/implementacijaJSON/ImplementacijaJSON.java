@@ -1,7 +1,9 @@
 package implementacijaJSON;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
@@ -24,8 +26,18 @@ public class ImplementacijaJSON extends Specifikacija {
 
 	@Override
 	public void ucitaj() {
-		// TODO Auto-generated method stub
-		
+	    try {
+	        BufferedReader buffReader = new BufferedReader(new FileReader(this.getFile()));
+	        String line;
+	        Gson gson = new Gson();
+	        Type type = new TypeToken<List<Entitet>>() {}.getType();
+	        while ((line = buffReader.readLine()) != null) {
+	        	this.getPodaci().addAll(gson.fromJson(line, type));
+	        }
+	        buffReader.close();
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
 	}
 
 	@Override

@@ -80,6 +80,7 @@ public class GlavniProzor extends JFrame{
 	
 	public void postaviSkladiste(boolean novoSkladiste) {
 		skladiste.postaviSkladiste(novoSkladiste);
+		this.getTableModel().update();
 	}
 
 	public Toolbar getToolbar() {

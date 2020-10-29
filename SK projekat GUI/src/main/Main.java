@@ -11,16 +11,16 @@ public class Main {
 		
 		boolean novoSkladiste = true;
 		
-		Object[] options = {"Novo skladiste", "Postojece", "Odustani"};
+		Object[] options = {"Novo skladiste", "Postojece skladiste"};
 		int n = JOptionPane.showOptionDialog(
 			GlavniProzor.getProzor(),
 			"Odakle zelite da povucete podatke?",
 			"Skladiste",
-			JOptionPane.YES_NO_CANCEL_OPTION,
+			JOptionPane.YES_NO_OPTION,
 			JOptionPane.QUESTION_MESSAGE,
 			null,
 			options,
-			options[2]
+			options[1]
 		);
 		if(n == JOptionPane.NO_OPTION) novoSkladiste = false;
 		GlavniProzor.getProzor().postaviSkladiste(novoSkladiste);

@@ -1,12 +1,13 @@
 package implementacijaJSON;
 
+import java.io.File;
+
 import specifikacija.Specifikacija;
 
 public class ImplementacijaJSON extends Specifikacija {
 
 	@Override
-	public void napraviBazu(String arg0) {
-		// TODO Auto-generated method stub
+	public void napraviBazu(File file) {
 		
 	}
 

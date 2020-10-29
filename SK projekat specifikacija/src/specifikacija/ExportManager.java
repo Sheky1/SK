@@ -1,5 +1,7 @@
 package specifikacija;
 
+import java.io.File;
+
 public class ExportManager {
 	
 	private static Specifikacija specifikacija;
@@ -8,8 +10,8 @@ public class ExportManager {
 		specifikacija = spec;		
 	}
 	
-	public static Specifikacija getExporter(String fileName) {
-		specifikacija.setFilename(fileName);
+	public static Specifikacija getExporter(File file) {
+		specifikacija.setFile(file);
 		return specifikacija;
 	}
 

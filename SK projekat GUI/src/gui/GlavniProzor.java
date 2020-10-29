@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -26,6 +27,7 @@ public class GlavniProzor extends JFrame{
 	private String selektovaniID = "";
 	
 	private GlavniProzor() {
+		skladiste = new ImplementacijaJSON();
 		postavi();
 	}
 
@@ -50,7 +52,6 @@ public class GlavniProzor extends JFrame{
 		setLocationRelativeTo(null);
 		setLayout(new BorderLayout());
 		
-		skladiste = new ImplementacijaJSON();
 		
 		toolbar = new Toolbar();
 		
@@ -75,6 +76,10 @@ public class GlavniProzor extends JFrame{
 		
 		add(gornji, BorderLayout.NORTH);
 		add(skrol, BorderLayout.CENTER);
+	}
+	
+	public void postaviSkladiste(boolean novoSkladiste) {
+		skladiste.postaviSkladiste(novoSkladiste);
 	}
 
 	public Toolbar getToolbar() {

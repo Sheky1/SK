@@ -1,40 +1,50 @@
 package specifikacija;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-//import javax.swing.JFileChooser;
+import javax.swing.JFileChooser;
 
 public abstract class Specifikacija {
 
-	private String filename;
+	private File file;
 	private ArrayList<Entitet> podaci;
 	
 	public Specifikacija() {
 		podaci = new ArrayList<Entitet>();
 	}
 
-	public abstract void napraviBazu(String putanja);
+	public abstract void napraviBazu(File file);
 //	public abstract void promeni(int id);
 	public abstract void upisi();
 	public abstract void ucitaj();
 	
-	public void napraviBazu() {
-		String putanja = "";
+	public void postaviSkladiste(boolean novoSkladiste) {
 		
-//		JFileChooser fc = new JFileChooser();
+		JFileChooser fc = new JFileChooser();
 		
-		setFilename(putanja);
-		napraviBazu(putanja);
-	}
-	public void otvoriBazu(String putanja) {
+		File file = null;
+		int returnVal = fc.showOpenDialog(null);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            file = fc.getSelectedFile();
+            System.out.println("File: " + file.getName() + ".");
+        } else {
+            System.out.println("Open command cancelled by user.");
+        }
+        
+		if(novoSkladiste) {
+			napraviBazu(file);
+			setFile(file);
+			ucitaj();
+		} else {
+			setFile(file);
+			ucitaj();
+		}
 		
-//		JFileChooser fc = new JFileChooser();
-
-		setFilename(putanja);
 	}
 
 	public void dodaj(String naziv, String textArea) {
@@ -180,13 +190,13 @@ public abstract class Specifikacija {
 		System.out.println(polja);
 		return polja;
 	}
-	
-	public String getFilename() {
-		return filename;
+
+	public File getFile() {
+		return file;
 	}
 
-	public void setFilename(String filename) {
-		this.filename = filename;
+	public void setFile(File file) {
+		this.file = file;
 	}
 
 	public ArrayList<Entitet> getPodaci() {

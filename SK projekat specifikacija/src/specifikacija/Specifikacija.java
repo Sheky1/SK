@@ -1,55 +1,85 @@
 package specifikacija;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.JFileChooser;
-
 public abstract class Specifikacija {
 
+	private File folder;
 	private File file;
 	private ArrayList<Entitet> podaci;
+	private boolean isAuto = true;
+	private int maxPoFajlu = 10;
+	private int autoinkrement = 0;
 	
 	public Specifikacija() {
 		podaci = new ArrayList<Entitet>();
 	}
 
-	public abstract void napraviBazu(File file);
+	public abstract void namestiBazu(boolean novoSkladiste);
 //	public abstract void promeni(int id);
 	public abstract void upisi();
 	public abstract void ucitaj();
 	
-	public void postaviSkladiste(boolean novoSkladiste) {
+	public void postaviSkladiste(boolean novoSkladiste, File folder, boolean isAuto) {
+		setFolder(folder);
 		
-		JFileChooser fc = new JFileChooser();
-		
-		File file = null;
-		int returnVal = fc.showOpenDialog(null);
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            file = fc.getSelectedFile();
-            System.out.println("File: " + file.getName() + ".");
-        } else {
-            System.out.println("Open command cancelled by user.");
-        }
-        
-		if(novoSkladiste) {
-			napraviBazu(file);
-			setFile(file);
-			ucitaj();
-		} else {
-			setFile(file);
-			ucitaj();
+		File file = new File(this.getFolder().getAbsolutePath() + "/config.txt");
+        try {
+            file.createNewFile();
+            if(novoSkladiste) {
+            	postaviConfig(file, isAuto);
+            	this.isAuto = isAuto;
+            } else {
+            	procitajConfig(file);
+            }
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		
+		namestiBazu(novoSkladiste);
+		ucitaj();
+		
+	}
+
+	private void procitajConfig(File file) throws IOException {
+		BufferedReader buffReader = new BufferedReader(new FileReader(file));
+		List<String> parametri = new ArrayList<String>();
+		for(int i = 0; i < 3; i++) {
+			String line = buffReader.readLine();
+			System.out.println(line);
+			parametri.add(line);
+		}
+		isparsirajParametre(parametri);
+		buffReader.close();
+	}
+
+	private void postaviConfig(File file, boolean isAuto) {
+		try {
+			BufferedWriter buffWriter = new BufferedWriter(new FileWriter(file));
+			buffWriter.write("maxPoFajlu:10\n");
+			buffWriter.write("isAuto:" + isAuto + "\n");
+			buffWriter.write("autoinkrement:0");
+			buffWriter.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void dodaj(String naziv, String textArea) {
 		Map<String, String> polja = parsirajTextarea(textArea);
-		Entitet noviEntitet = new Entitet(naziv, polja);
+		Entitet noviEntitet = new Entitet(this.getAutoinkrement(), naziv, polja);
 		podaci.add(noviEntitet);
 		upisi();
 	}
@@ -71,7 +101,7 @@ public abstract class Specifikacija {
 			}
 		}
 		Map<String, String> polja = parsirajTextarea(textArea);
-		Entitet noviEntitet = new Entitet(naziv, polja);
+		Entitet noviEntitet = new Entitet(this.getAutoinkrement() ,naziv, polja);
 		spoljni.getUgnjezdeni().put(noviEntitet.getId(), noviEntitet);
 		upisi();
 	}
@@ -175,8 +205,15 @@ public abstract class Specifikacija {
 		}
 		Collections.sort(entiteti);
 	}
-	
-	
+
+	private void isparsirajParametre(List<String> parametri) {
+		for (String string : parametri) {
+			String[] par = string.split(":");
+			if(par[0].equals("maxPoFajlu")) this.maxPoFajlu = Integer.parseInt(par[1]);
+			if(par[0].equals("isAuto")) this.isAuto = par[1].equals("true") ? true : false;
+			if(par[0].equals("autoinkrement")) this.autoinkrement = Integer.parseInt(par[1]);
+		}
+	}
 	
 	public HashMap<String, String> parsirajTextarea(String tekst) {
 		HashMap<String, String> polja = new HashMap<String, String>();
@@ -189,6 +226,64 @@ public abstract class Specifikacija {
 		}
 		System.out.println(polja);
 		return polja;
+	}
+	
+	public void clearFile() {
+        FileWriter fw;
+		try {
+			fw = new FileWriter(this.getFile());
+	        PrintWriter writer = new PrintWriter(fw, false);
+	        writer.print("");
+	        writer.flush();
+	        writer.close();
+	        fw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} 
+    }
+
+	public boolean isAuto() {
+		return isAuto;
+	}
+
+	public void setAuto(boolean isAuto) {
+		this.isAuto = isAuto;
+	}
+
+	public int getMaxPoFajlu() {
+		return maxPoFajlu;
+	}
+
+	public void setMaxPoFajlu(int maxPoFajlu) {
+		this.maxPoFajlu = maxPoFajlu;
+	}
+
+	public int getAutoinkrement() {
+		int temp = autoinkrement;
+		autoinkrement++;
+		File file = new File(this.getFolder().getAbsolutePath() + "/config.txt");
+        try {
+			BufferedWriter buffWriter = new BufferedWriter(new FileWriter(file));
+			buffWriter.write("maxPoFajlu:" + this.getMaxPoFajlu() + "\n");
+			buffWriter.write("isAuto:" + this.isAuto() + "\n");
+			buffWriter.write("autoinkrement:" + autoinkrement);
+			buffWriter.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return temp;
+	}
+
+	public void setAutoinkrement(int autoinkrement) {
+		this.autoinkrement = autoinkrement;
+	}
+
+	public File getFolder() {
+		return folder;
+	}
+
+	public void setFolder(File folder) {
+		this.folder = folder;
 	}
 
 	public File getFile() {

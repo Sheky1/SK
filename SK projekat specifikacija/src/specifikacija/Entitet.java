@@ -9,17 +9,8 @@ public class Entitet implements Comparable<Entitet> {
 	private String naziv;
 	private Map<String, String> prostiPodaci;
 	private Map<Integer, Entitet> ugnjezdeni;
-	private static int autoinkrement = 0;
 	private boolean sortById = true;
 	private boolean asc = true;
-	
-	public Entitet(String naziv, Map<String, String> prostiPodaci) {
-		this.id = autoinkrement;
-		autoinkrement++;
-		this.naziv = naziv;
-		this.prostiPodaci = prostiPodaci;
-		ugnjezdeni = new HashMap<Integer, Entitet>();
-	}
 	
 	public Entitet(int id, String naziv, Map<String, String> prostiPodaci) {
 		this.id = id;

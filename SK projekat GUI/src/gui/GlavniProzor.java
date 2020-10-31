@@ -3,6 +3,7 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.io.File;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -78,8 +79,8 @@ public class GlavniProzor extends JFrame{
 		add(skrol, BorderLayout.CENTER);
 	}
 	
-	public void postaviSkladiste(boolean novoSkladiste) {
-		skladiste.postaviSkladiste(novoSkladiste);
+	public void postaviSkladiste(boolean novoSkladiste, File file, boolean isAuto) {
+		skladiste.postaviSkladiste(novoSkladiste, file, isAuto);
 		this.getTableModel().update();
 	}
 

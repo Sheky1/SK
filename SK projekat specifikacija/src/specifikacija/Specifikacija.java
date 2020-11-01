@@ -3,7 +3,6 @@ package specifikacija;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -28,7 +27,6 @@ public abstract class Specifikacija {
 	}
 
 	public abstract void namestiBazu(boolean novoSkladiste);
-//	public abstract void promeni(int id);
 	public abstract void upisi();
 	public abstract void ucitaj();
 	
@@ -61,7 +59,12 @@ public abstract class Specifikacija {
 			System.out.println(line);
 			parametri.add(line);
 		}
-		isparsirajParametre(parametri);
+		for (String string : parametri) {
+			String[] par = string.split(":");
+			if(par[0].equals("maxPoFajlu")) this.maxPoFajlu = Integer.parseInt(par[1]);
+			if(par[0].equals("isAuto")) this.isAuto = par[1].equals("true") ? true : false;
+			if(par[0].equals("autoinkrement")) this.autoinkrement = Integer.parseInt(par[1]);
+		}
 		buffReader.close();
 	}
 
@@ -83,12 +86,19 @@ public abstract class Specifikacija {
 		podaci.add(noviEntitet);
 		upisi();
 	}
-	public void dodaj(String idString, String naziv, String textArea) { 
+	public boolean dodaj(String idString, String naziv, String textArea) { 
+		boolean uspeo = true;
 		int id = Integer.parseInt(idString);
-		Map<String, String> polja = parsirajTextarea(textArea);
-		Entitet noviEntitet = new Entitet(id, naziv, polja);
-		podaci.add(noviEntitet);
-		upisi();
+		for (Entitet entitet : podaci) {
+			if(entitet.getId() == id) uspeo = false;
+		}
+		if(uspeo) {
+			Map<String, String> polja = parsirajTextarea(textArea);
+			Entitet noviEntitet = new Entitet(id, naziv, polja);
+			podaci.add(noviEntitet);
+			upisi();
+		}
+		return uspeo;
 	}
 	
 	public void dodajUgnjezdeni(String spoljniId, String naziv, String textArea) {
@@ -105,7 +115,8 @@ public abstract class Specifikacija {
 		spoljni.getUgnjezdeni().put(noviEntitet.getId(), noviEntitet);
 		upisi();
 	}
-	public void dodajUgnjezdeni(String spoljniId, String idString, String naziv, String textArea) { 
+	public boolean dodajUgnjezdeni(String spoljniId, String idString, String naziv, String textArea) { 
+		boolean uspeo = true;
 		int id = Integer.parseInt(spoljniId);
 		Entitet spoljni = null;
 		for (Entitet entitet : podaci) {
@@ -115,10 +126,14 @@ public abstract class Specifikacija {
 			}
 		}
 		int idUgnj = Integer.parseInt(idString);
-		Map<String, String> polja = parsirajTextarea(textArea);
-		Entitet noviEntitet = new Entitet(idUgnj, naziv, polja);
-		spoljni.getUgnjezdeni().put(noviEntitet.getId(), noviEntitet);
-		upisi();
+		if(!spoljni.getUgnjezdeni().containsKey(idUgnj)) uspeo = false;
+		if(uspeo) {
+			Map<String, String> polja = parsirajTextarea(textArea);
+			Entitet noviEntitet = new Entitet(idUgnj, naziv, polja);
+			spoljni.getUgnjezdeni().put(noviEntitet.getId(), noviEntitet);
+			upisi();
+		}
+		return uspeo;
 	}
 
 	public void obrisi(String idString) {
@@ -204,15 +219,6 @@ public abstract class Specifikacija {
 			else entitet.setSortById(false);
 		}
 		Collections.sort(entiteti);
-	}
-
-	private void isparsirajParametre(List<String> parametri) {
-		for (String string : parametri) {
-			String[] par = string.split(":");
-			if(par[0].equals("maxPoFajlu")) this.maxPoFajlu = Integer.parseInt(par[1]);
-			if(par[0].equals("isAuto")) this.isAuto = par[1].equals("true") ? true : false;
-			if(par[0].equals("autoinkrement")) this.autoinkrement = Integer.parseInt(par[1]);
-		}
 	}
 	
 	public HashMap<String, String> parsirajTextarea(String tekst) {

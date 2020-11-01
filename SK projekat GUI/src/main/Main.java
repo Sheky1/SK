@@ -31,11 +31,11 @@ public class Main {
 		JFileChooser fc = new JFileChooser();
 		fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		
-		File file = null;
+		File folder = null;
 		int returnVal = fc.showOpenDialog(null);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
-            file = fc.getSelectedFile();
-            System.out.println("File: " + file.getName() + ".");
+            folder = fc.getSelectedFile();
+            System.out.println("File: " + folder.getName() + ".");
         } else {
             System.out.println("Open command cancelled by user.");
         }
@@ -55,10 +55,9 @@ public class Main {
 			if(m == JOptionPane.NO_OPTION) isAuto = false;
 		}
 		
-		
-		if(file != null) {
+		if(folder != null) {
 			GlavniProzor.getProzor().setVisible(true);
-			GlavniProzor.getProzor().postaviSkladiste(novoSkladiste, file, isAuto);
+			GlavniProzor.getProzor().postaviSkladiste(novoSkladiste, folder, isAuto);
 		} else {
 			JOptionPane.showMessageDialog(null, "Neoophodno je uneti folder skladista", "Skladiste", JOptionPane.ERROR_MESSAGE);
 		}

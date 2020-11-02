@@ -10,7 +10,10 @@ public class ExceptionHandler {
 	
 	private static String getPoruka(String text) {
 		if(text.equals("naziv")) return "Niste uneli naziv.";
-		else if(text.equals("dodavanje")) return "Greska prilikom dodavanja";
-		return null;
+		else if(text.equals("ID")) return "Niste uneli ID.";
+		else if(text.equals("postojeciID")) return "ID koji ste uneli vec postoji.";
+		else if(text.equals("textArea")) return "Morate uneti barem jedan podatak o entitetu.";
+		else if(text.equals("nepravilanID")) return "ID mora biti broj.";
+		return "Greska";
 	}
 }

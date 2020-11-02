@@ -14,28 +14,28 @@ public class SortirajListener implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		Object[] options = {"Po ID-ju", "Po nazivu", "Odustani"};
+		Object[] options = {"Po ID-ju", "Po nazivu"};
 		int n = JOptionPane.showOptionDialog(
 			GlavniProzor.getProzor(),
 			"Kako zelite da sortirate podatke?",
 			"Odabir nacina sortiranja",
-			JOptionPane.YES_NO_CANCEL_OPTION,
+			JOptionPane.YES_NO_OPTION,
 			JOptionPane.QUESTION_MESSAGE,
 			null,
 			options,
-			options[2]
+			options[1]
 		);
 		
-		Object[] options2 = {"ASC", "DESC", "Odustani"};
+		Object[] options2 = {"ASC", "DESC"};
 		int m = JOptionPane.showOptionDialog(
 			GlavniProzor.getProzor(),
 			"Po kom poretku?",
 			"Odabir nacina sortiranja",
-			JOptionPane.YES_NO_CANCEL_OPTION,
+			JOptionPane.YES_NO_OPTION,
 			JOptionPane.QUESTION_MESSAGE,
 			null,
 			options2,
-			options2[2]
+			options2[1]
 		);
 		
 		boolean poID = true;
